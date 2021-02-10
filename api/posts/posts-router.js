@@ -22,7 +22,12 @@ router.get("/:id", (req, res) => {
 })
 
 router.get("/:id/comments", (req, res) => {
-    
+    const { id } = req.params
+    Posts.findPostComments(id).then(comments => {
+        !comments ?
+        res.status(404).json({message:`no comments found`}) :
+        res.status(200).json(comments)
+    })
 })
 
 router.post("/", (req, res) => {
